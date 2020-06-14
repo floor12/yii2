@@ -218,7 +218,7 @@
             this.off(events);
 
             var id = $(this).attr('id');
-            $.each(gridEventHandlers[id], function (type, data) {
+            $.each(gridEventHandlers[id], function (eventUniqueKey, data) {
                 $(document).off(data.event, data.selector);
             });
 
@@ -253,6 +253,7 @@
             gridEventHandlers[id] = {};
         }
         $(document).on(event, selector, callback);
-        gridEventHandlers[id][type] = {event: event, selector: selector};
+        var eventUniqueKey = type + ': ' + selector;
+        gridEventHandlers[id][eventUniqueKey] = {event: event, selector: selector};
     }
 })(window.jQuery);
